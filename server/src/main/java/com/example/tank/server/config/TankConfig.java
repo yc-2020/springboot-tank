@@ -1,5 +1,6 @@
 package com.example.tank.server.config;
 
+import jdk.nashorn.internal.ir.annotations.Reference;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
  * @author yc
  * @date 2022/4/16 10:26
  */
+@Reference
 @Component
 @ConfigurationProperties(prefix = "tank")
 public class TankConfig {

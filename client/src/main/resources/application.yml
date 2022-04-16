@@ -1,0 +1,5 @@
+tank:
+  client:
+    size:
+      wight: 800
+      height: 600
