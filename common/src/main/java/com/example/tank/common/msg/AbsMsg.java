@@ -21,6 +21,7 @@ public abstract class AbsMsg implements Serializable {
     public abstract MsgType getMsgType();
 
     /**
+     * 转bytes
      * @return
      */
     public byte[] toBytes() {
@@ -37,6 +38,13 @@ public abstract class AbsMsg implements Serializable {
     }
 
 
+    /**
+     * bytes 转对象
+     * @param bytes
+     * @param clazz
+     * @param <T>
+     * @return
+     */
     public static <T extends AbsMsg> T parseObject(byte[] bytes, Class<T> clazz) {
         T obj = null;
 
@@ -48,4 +56,13 @@ public abstract class AbsMsg implements Serializable {
         }
         return obj;
     }
+
+
+    /**
+     * 处理对象
+     */
+    public abstract void handle();
+
+
+
 }

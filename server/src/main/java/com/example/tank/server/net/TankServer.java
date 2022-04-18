@@ -1,9 +1,8 @@
 package com.example.tank.server.net;
 
-import com.example.tank.server.config.TankConfig;
+import com.example.tank.common.config.TankConfig;
 import com.example.tank.server.net.childHandler.ServerChildHandler;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -11,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+//import com.example.tank.commom
 
 import javax.annotation.Resource;
 
@@ -24,6 +24,7 @@ public class TankServer {
     private static final Logger logger = LoggerFactory.getLogger(TankServer.class);
     @Resource
     private TankConfig tankConfig;
+
 
     @Async
     public void serverStart() {
@@ -42,7 +43,7 @@ public class TankServer {
 
                         @Override
                         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-                            logger.error("server error",cause);
+                            logger.error("server error", cause);
                         }
                     })
                     .bind(tankConfig.getServer().getPort())

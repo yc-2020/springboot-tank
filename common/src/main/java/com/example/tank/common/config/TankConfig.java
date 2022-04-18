@@ -1,4 +1,4 @@
-package com.example.tank.server.config;
+package com.example.tank.common.config;
 
 import jdk.nashorn.internal.ir.annotations.Reference;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -26,12 +26,22 @@ public class TankConfig {
     public static class Server {
         private Integer port;
 
+        private String address;
+
         public Integer getPort() {
             return port;
         }
 
         public void setPort(Integer port) {
             this.port = port;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
         }
     }
 }

@@ -12,32 +12,17 @@ import org.springframework.stereotype.Component;
 */
 @Reference
 @Component
-@ConfigurationProperties(prefix = "tank")
-@Order(99)
-//@DependsOn("clientFrame")
+@ConfigurationProperties(prefix = "tank.client")
 public class ClientConfig {
 
-    private Client client;
+    private Size size;
 
-
-    public Client getClient() {
-        return client;
+    public Size getSize() {
+        return size;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public static class Client{
-        private Size size;
-
-        public Size getSize() {
-            return size;
-        }
-
-        public void setSize(Size size) {
-            this.size = size;
-        }
+    public void setSize(Size size) {
+        this.size = size;
     }
 
     public static class Size{
@@ -61,11 +46,4 @@ public class ClientConfig {
         }
     }
 
-
-    @Override
-    public String toString() {
-        return "ClientConfig{" +
-                "client=" + client +
-                '}';
-    }
 }

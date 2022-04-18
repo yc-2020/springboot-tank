@@ -1,3 +1,4 @@
 tank:
   server:
+    address: localhost
     port: 8888

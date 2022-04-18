@@ -3,3 +3,6 @@ tank:
     size:
       wight: 800
       height: 600
+  server:
+    address: localhost
+    port: 8888
