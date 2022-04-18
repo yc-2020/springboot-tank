@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * @author yc
  */
 @EnableAsync
-@SpringBootApplication(scanBasePackages="com.example.tank")
+@SpringBootApplication(scanBasePackages="com.example.tank.*")
 public class ClientApplication implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(ClientApplication.class);

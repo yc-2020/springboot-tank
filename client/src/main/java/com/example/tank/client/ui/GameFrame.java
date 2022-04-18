@@ -1,6 +1,8 @@
 package com.example.tank.client.ui;
 
 import com.example.tank.client.config.ClientConfig;
+import com.example.tank.client.net.ClientContext;
+import com.example.tank.client.ui.keyListener.TankKeyListener;
 import com.example.tank.client.net.TankClient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,13 +23,19 @@ import java.awt.event.WindowEvent;
 public class GameFrame extends Frame {
     private static final Logger logger = LogManager.getLogger(GameFrame.class);
 
+    /**
+     * 配置文件，又构造方法注入
+     */
     private ClientConfig clientConfig;
 
-    @Resource
+
     private TankClient tankClient;
 
+    private ClientContext clientContext;
 
-    public GameFrame(ClientConfig clientConfig) {
+
+
+    public GameFrame(ClientConfig clientConfig,TankKeyListener tankKeyListener,TankClient tankClient,ClientContext clientContext) {
         this.clientConfig=clientConfig;
         this.setSize(clientConfig.getSize().getWight(), clientConfig.getSize().getHeight());
         this.setResizable(false);
@@ -36,12 +44,13 @@ public class GameFrame extends Frame {
             @Override
             public void windowClosing(WindowEvent e) {
                 if(null!=tankClient.getCf()){
-                    tankClient.getChannel().close();
+                    clientContext.getChannel().close();
                 }
                 System.exit(0);
             }
         });
-//        this.addKeyListener(new MyKeyListener());
+        this.addKeyListener(tankKeyListener);
+        this.tankClient=tankClient;
     }
 
 }

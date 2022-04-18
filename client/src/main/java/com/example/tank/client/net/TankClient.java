@@ -1,9 +1,8 @@
 package com.example.tank.client.net;
 
+import com.example.tank.client.net.handle.ClientChannelInitializer;
 import com.example.tank.common.config.TankConfig;
-import com.example.tank.common.handle.ClientChannelInitializer;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.EventLoopGroup;
@@ -30,7 +29,8 @@ public class TankClient {
     @Resource
     private TankConfig tankConfig;
 
-    private Channel channel = null;
+    @Resource
+    private ClientContext clientContext;
 
     private ChannelFuture cf = null;
 
@@ -49,32 +49,25 @@ public class TankClient {
                 public void operationComplete(ChannelFuture future) throws Exception {
                     if (!future.isSuccess()) {
                         logger.info("not connected!");
-                    } else {
+                    }
+                    else {
                         logger.info("connected success");
                         // initialize the channel
-                        channel = future.channel();
+                        clientContext.setChannel(future.channel());
                     }
                 }
             });
 
             cf.sync();
             cf.channel().closeFuture().sync();
-            System.out.println("connection closed!");
+            logger.info("connection closed!");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info("tanClient connect error", e);
         } finally {
             group.shutdownGracefully();
         }
     }
 
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
 
     public ChannelFuture getCf() {
         return cf;

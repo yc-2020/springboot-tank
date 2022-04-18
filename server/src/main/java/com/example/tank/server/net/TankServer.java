@@ -1,6 +1,8 @@
 package com.example.tank.server.net;
 
 import com.example.tank.common.config.TankConfig;
+import com.example.tank.common.handle.MsgDecoder;
+import com.example.tank.common.handle.MsgEncoder;
 import com.example.tank.server.net.childHandler.ServerChildHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -10,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-//import com.example.tank.commom
-
 import javax.annotation.Resource;
 
 /**
@@ -22,8 +22,11 @@ import javax.annotation.Resource;
 public class TankServer {
 
     private static final Logger logger = LoggerFactory.getLogger(TankServer.class);
+
     @Resource
     private TankConfig tankConfig;
+    @Resource
+    private ServerChildHandler serverChildHandler;
 
 
     @Async
@@ -37,8 +40,10 @@ public class TankServer {
                     .childHandler(new ChannelInitializer() {
                         @Override
                         protected void initChannel(Channel ch) throws Exception {
-                            ChannelPipeline pipeline = ch.pipeline();
-                            pipeline.addLast(new ServerChildHandler());
+                            ChannelPipeline pipeline = ch.pipeline()
+                                    .addLast(new MsgEncoder())
+                                    .addLast(new MsgDecoder())
+                                    .addLast(new ServerChildHandler());
                         }
 
                         @Override
